@@ -49,17 +49,6 @@ class DictAttr(object):
         else:
             # TODO: Raise File does not exists exception.
             raise Exception('File does not exists!')
-    
-    def to_string(self) -> str:
-        return json.dumps(self.__value)
-    
-    def to_json_file(self, _filepath):
-        if os.path.exists(_filepath):
-            with open(_filepath, 'w') as _f:
-                json.dump(self.__value, _f)
-        else:
-            # TODO: Raise File does not exists exception.
-            raise Exception('File does not exists!')
 
 
 class DictAttrDict(DictAttr):
@@ -108,10 +97,9 @@ class DictAttrDict(DictAttr):
                 # TODO: Raise Invalid Key execption
                 raise Exception('KeyError')
 
-    # TODO: Implement setter 
-    def set(self, _key, _value):
-        __key = self.__key_check(_key)
-        self.__value[__key] = _value
+    # def __setitem__(self, _key, _value):
+    #     __key = self.__key_check(_key)
+    #     self.__value[__key] = _value
 
     def __call__(self, *args, **kwargs):
         pass
@@ -125,6 +113,16 @@ class DictAttrDict(DictAttr):
     def to_dict(self) -> typing.Dict:
         return self.__value
 
+    def to_string(self) -> str:
+        return json.dumps(self.__value)
+    
+    def to_json_file(self, _filepath):
+        if os.path.exists(_filepath):
+            with open(_filepath, 'w') as _f:
+                json.dump(self.__value, _f)
+        else:
+            # TODO: Raise File does not exists exception.
+            raise Exception('File does not exists!')
 
 class DictAttrList(DictAttr):
     """
@@ -169,22 +167,34 @@ class DictAttrList(DictAttr):
     def to_list(self) -> typing.List:
         return self.__value
 
+    def to_string(self) -> str:
+        return json.dumps(self.__value)
+    
+    def to_json_file(self, _filepath):
+        if os.path.exists(_filepath):
+            with open(_filepath, 'w') as _f:
+                json.dump(self.__value, _f)
+        else:
+            # TODO: Raise File does not exists exception.
+            raise Exception('File does not exists!')
 
-if __name__ == "__main__":
-    dattr_obj = DictAttr({
-        "Dummy_Key": "Dummy_Data",
-        "Dummy_List": [
-            {
-                "Dummy_Mapping": {
-                    "keys_": "Dummy_Value_In_Mapping"
-                }, 
-                "Dummy_Flag":1
-            }
-        ]})
-    print(dattr_obj)
-    print(dattr_obj.Dummy_List)
-    print(dattr_obj.Dummy_List[0].Dummy_Mapping.keys_)
-    print(dattr_obj.Dummy_List.to_list())
-    dattr_obj.Dummy_List[0] = 'Dummy_Replaced_Value'
-    print(dattr_obj.Dummy_List[0])
+# if __name__ == "__main__":
+    # dattr_obj = DictAttr({
+    #     "Dummy_Key": "Dummy_Data",
+    #     "Dummy_List": [
+    #         {
+    #             "Dummy_Mapping": {
+    #                 "keys_": "Dummy_Value_In_Mapping"
+    #             }, 
+    #             "Dummy_Flag":1
+    #         }
+    #     ]})
+    # return DictAttr.from_string('{"Dummy_Key": "Dummy_Data","Dummy_List": [{"Dummy_Mapping": {"keys_": "Dummy_Value_In_Mapping"},"Dummy_Flag":100}]}')
+    # print(dattr_obj.to_string())
+    # print(dattr_obj.Dummy_List)
+    # print(dattr_obj.Dummy_List[0].Dummy_Mapping.keys_)
+    # print(dattr_obj.Dummy_List.to_list())
+    # dattr_obj.Dummy_List[0] = 'Dummy_Replaced_Value'
+    # print(dattr_obj.Dummy_List[0])
+    # print(dattr_obj.to_string())
     # print(dattr_obj.Dummy_Mapping.keys())
