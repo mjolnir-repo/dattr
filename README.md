@@ -1,2 +1,2 @@
 # dattr
-Interpretation of Python dictionaries as Keys
+Interpretation of Python dictionary Keys as Attributes
