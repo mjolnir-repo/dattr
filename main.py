@@ -1,9 +1,9 @@
 import json
 import typing
-import keyword
 import os
 from collections import abc
 import sys
+import errno
 
 # from dattr_helper import DictAttrDict
 
@@ -40,8 +40,7 @@ class DictAttr(object):
                 json_data = json.load(f)
             return cls(json_data)
         else:
-            # TODO: Raise File does not exists exception.
-            raise Exception('File does not exists!')
+            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), filepath)
 
     def _get_current_data(self):
         """
@@ -67,11 +66,12 @@ class DictAttr(object):
             if val:
                 return DictAttrSub(self._data, self._path + [key])
             else:
-                # TODO: Raise Invalid Key execption
-                raise Exception('KeyError: ' + str(key))
+                if isinstance(key, slice) or isinstance(key, int):
+                    raise IndexError(key)
+                else:
+                    raise KeyError(key)
         else:
-            # TODO: Raise Invalid type argument
-            raise Exception('Invalid argument type: {}'.format(type(key)))
+            raise TypeError('Argument - {} is of invalid type: {}'.format(key, type(key)))
 
     def __getattr__(self, key:str):
         """
@@ -87,8 +87,7 @@ class DictAttr(object):
             if val:
                 return DictAttrSub(self._data, self._path + [key])
             else:
-                # TODO: Raise Invalid Key execption
-                raise Exception('KeyError')
+                raise KeyError(key)
 
     def __call__(self, *args, **kwargs):
         """
@@ -153,8 +152,7 @@ class DictAttr(object):
             with open(filepath, 'w') as f:
                 json.dump(self._data, f)
         else:
-            # TODO: Raise File does not exists exception.
-            raise Exception('File does not exists!')
+            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), filepath)
 
 
 class DictAttrSub(DictAttr):
@@ -211,6 +209,7 @@ if __name__ == "__main__":
     dattr_obj.Dummy_List[0].Dummy_Mapping['keys'] = 'Dummy_Replaced_Value'
     print(dattr_obj.Dummy_List[0].Dummy_Mapping['keys'])
     print(dattr_obj.Dummy_List[0].Dummy_Mapping['keys'] == 'Dummy_Replaced_Value')
+    print(dattr_obj.Dummy_List[0].Dummy_Mapping.keys())
     for elem in dattr_obj.keys():
         print(dattr_obj[elem])
     print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
