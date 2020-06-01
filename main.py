@@ -115,6 +115,34 @@ class DictAttr(object):
         """
         return str(self) == str(other)
 
+    def __lt__(self, other):
+        """
+            Handling Equality, this will come into effect is the object is compared with any data.
+            param: other
+        """
+        return str(self) < str(other)
+
+    def __gt__(self, other):
+        """
+            Handling Equality, this will come into effect is the object is compared with any data.
+            param: other
+        """
+        return str(self) > str(other)
+
+    def __le__(self, other):
+        """
+            Handling Equality, this will come into effect is the object is compared with any data.
+            param: other
+        """
+        return str(self) <= str(other)
+
+    def __ge__(self, other):
+        """
+            Handling Equality, this will come into effect is the object is compared with any data.
+            param: other
+        """
+        return str(self) >= str(other)
+
     # Alternate data access API
     def to_json_file(self, filepath):
         """
@@ -166,7 +194,7 @@ class DictAttrSub(DictAttr):
     Dummy example set, if main.py is executed directly.
 """
 if __name__ == "__main__":
-    dattr_obj = dattr.DictAttr({
+    dattr_obj = DictAttr({
         "Dummy_Key": "Dummy_Data",
         "Dummy_List": [
             {
@@ -185,3 +213,12 @@ if __name__ == "__main__":
     print(dattr_obj.Dummy_List[0].Dummy_Mapping['keys'] == 'Dummy_Replaced_Value')
     for elem in dattr_obj.keys():
         print(dattr_obj[elem])
+    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    print(dattr_obj.Dummy_List[0].Dummy_Flag == 2)
+    print(dattr_obj.Dummy_List[0].Dummy_Flag < 3)
+    print(dattr_obj.Dummy_List[0].Dummy_Flag <= 3)
+    print(dattr_obj.Dummy_List[0].Dummy_Flag <= 2)
+    print(dattr_obj.Dummy_List[0].Dummy_Flag >= 2)
+    print(dattr_obj.Dummy_List[0].Dummy_Flag >= 1)
+    print(dattr_obj.Dummy_List[0].Dummy_Flag > 1)
+    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
