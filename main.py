@@ -117,28 +117,28 @@ class DictAttr(object):
 
     def __lt__(self, other):
         """
-            Handling Equality, this will come into effect is the object is compared with any data.
+            Handling `less than` comparison, this will come into effect is the object is compared with any data.
             param: other
         """
         return str(self) < str(other)
 
     def __gt__(self, other):
         """
-            Handling Equality, this will come into effect is the object is compared with any data.
+            Handling `greater than` comparison, this will come into effect is the object is compared with any data.
             param: other
         """
         return str(self) > str(other)
 
     def __le__(self, other):
         """
-            Handling Equality, this will come into effect is the object is compared with any data.
+            Handling `greater than` comparison, this will come into effect is the object is compared with any data.
             param: other
         """
         return str(self) <= str(other)
 
     def __ge__(self, other):
         """
-            Handling Equality, this will come into effect is the object is compared with any data.
+            Handling `greater than equals to` comparison, this will come into effect is the object is compared with any data.
             param: other
         """
         return str(self) >= str(other)
