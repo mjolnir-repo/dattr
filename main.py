@@ -148,11 +148,8 @@ class DictAttr(object):
             Data will be stored in file in json format.
             param: filepath
         """
-        if os.path.exists(filepath):
-            with open(filepath, 'w') as f:
-                json.dump(self._data, f)
-        else:
-            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), filepath)
+        with open(filepath, 'w') as f:
+            json.dump(self._data, f)
 
 
 class DictAttrSub(DictAttr):
@@ -208,7 +205,8 @@ if __name__ == "__main__":
     print(dattr_obj.Dummy_List[0].Dummy_Mapping.keys())
     dattr_obj.Dummy_List[0].Dummy_Mapping['keys'] = 'Dummy_Replaced_Value'
     print(dattr_obj.Dummy_List[0].Dummy_Mapping['keys'])
-    print(dattr_obj.Dummy_List[0].Dummy_Mapping['keys'] == 'Dummy_Replaced_Value')
+    dattr_obj.Dummy_List[0].Dummy_Mapping.keys = 'Dummy_Replaced_Again_Value'
+    print(dattr_obj.Dummy_List[0].Dummy_Mapping['keys'])
     print(dattr_obj.Dummy_List[0].Dummy_Mapping.keys())
     for elem in dattr_obj.keys():
         print(dattr_obj[elem])
