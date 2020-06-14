@@ -3,7 +3,7 @@ import json
 import traceback
 import sys
 import os
-from ..main import DictAttr
+from dattr.main import DictAttr
 
 
 @pytest.fixture(name="source_data_str", scope="module")
