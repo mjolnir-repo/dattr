@@ -1,6 +1,9 @@
 > # DATTR: Attribute interpretation of Dictionary Keys
 This package was developed as support package to `mjonir` project. In `mjolnir` project, there are certain scope to read configuration json and traverse through then recursively. So I felt the need for a solution that will let us chain the dictionary keys with dot notation for ease-of-use. Hence I built one. I know there are already some libraries available which do similar stuff. But the purpose of this package was to support custom features like reading-writing to-fro json files, read strings and compile as dictionary directly etc.
 
+> ## Installation
+The package is available in PyPI repository. Just use **`pip install dattr`**. Checkout the project on PyPI at https://pypi.org/project/dattr/ .
+
 > ## Features
 As already mentioned, main feature of the package is to support attribute style key handling of python dictionaries. It will also continue to support interpolation. Following are some example:
 ### 1. Convert a dictionary to dattr:
