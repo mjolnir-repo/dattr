@@ -1,2 +1,2 @@
 #!/bin/bash
-python dattr/*.py
+python tests/*.py
